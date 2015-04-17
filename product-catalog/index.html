@@ -1,0 +1,33 @@
+<html>
+<head>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="../common/api-utils.js"></script>
+    <script type="text/javascript" src="../common/handlebars-v3.0.1.js"></script>
+    <script type="text/javascript" src="product-catalog-api.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+    <link type="text/css" rel="stylesheet" href="index.css">
+</head>
+<body>
+    <script id="category-template" type="text/x-handlebars-template">
+        <ul class="product-category">
+            <li><a class="category-link" data-category-id="{{product_category_id}}">{{name}}</a>
+            {{#each children}}
+                {{> category-template}}
+            {{/each}}
+            </li>
+        </ul>
+    </script>
+
+
+    <script id="products-template" type="text/x-handlebars-template">
+        <div class="product">
+            <a class="product-link" data-product-id="{{product_id}}">
+                <img src="{{thumbnailURL}}" class="product-image" /><br>
+                {{name}}
+            </a>
+        </div>
+    </script>
+    <div id="product-categories" class="product-categories"></div>
+    <div id="products" class="products"></div>
+</body>
+</html>

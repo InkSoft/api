@@ -1,0 +1,23 @@
+.product-categories {
+    display:inline-block;
+    vertical-align: top;
+    max-width:25%;
+}
+
+.products {
+    display:inline-block;
+    vertical-align: top;
+    max-width:70%;
+}
+
+.product {
+    display:inline-block;
+    vertical-align: top;
+    border: 1px solid black;
+    width:250px;
+}
+
+.product-link {
+    display:block;
+    text-align:center;
+}
