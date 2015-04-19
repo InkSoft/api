@@ -1,5 +1,10 @@
+//This file has some really useful common methods for structuring and processing data returned from the API.
 window.APIUtils = function (settings) {
   var _self = this;
+
+  //The API will often return data with "REPLACE_DOMAIN_WITH" in URLs instead of the actual domain.  This function handles
+  //all the different scenarios and replaces the URLs accordingly so we don't get cross-protocol security issues and
+  //everything hits the right domain.
   this.fixImageUrl = function (imageUrl) {
     if (!imageUrl) {
       return imageUrl;
@@ -16,6 +21,8 @@ window.APIUtils = function (settings) {
   };
 
 
+  //Kind of a generic utility for taking a flat list of data (like a complete list of product categories) and
+  //turn it into a hierarchy with parent and children.
   this.arrangeHierarchy = function(flatList, idGetter, parentIDGetter) {
     var hierarchy = [];
     for (var i = 0; i < flatList.length; i++) {
@@ -42,7 +49,9 @@ window.APIUtils = function (settings) {
   };
 
   //Takes an xml node (usually the root node at first), and converts it into a js object.
-  //settings is an object that designates which properties should be arrays and which should be singles.  The default is array.
+  //settings is an object that gives hints as to how the data should be converted and which objects should be arrays
+  //and which should be singles.  The default is array.  This code isn't super simple to read at first but it saves
+  //quite a bit of tedious javascript XML parsing later on.
   this.deserializeXml = function (parentNode, settings) {
     if (!parentNode) {
       return null;

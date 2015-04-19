@@ -1,13 +1,19 @@
 <html>
 <head>
+
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
-    <script type="text/javascript" src="../common/api-utils.js"></script>
     <script type="text/javascript" src="../common/handlebars-v3.0.1.js"></script>
+
+    <script type="text/javascript" src="../common/api-utils.js"></script>
     <script type="text/javascript" src="product-catalog-api.js"></script>
     <script type="text/javascript" src="index.js"></script>
     <link type="text/css" rel="stylesheet" href="index.css">
 </head>
 <body>
+    <!-- This example uses handlebars for rendering the data to keep the HTML and javascript simple and focused.
+     Visit http://www.handlebarsjs.com for more information on handlebars, but the examples here should be pretty
+     self-explanatory.
+    -->
     <script id="category-template" type="text/x-handlebars-template">
         <ul class="product-category">
             <li><a class="category-link" data-category-id="{{product_category_id}}">{{name}}</a>
@@ -27,7 +33,11 @@
             </a>
         </div>
     </script>
+
+    <!-- Placeholder for the list of product categories and subcategories -->
     <div id="product-categories" class="product-categories"></div>
+
+    <!-- Placeholder for the list of products in a category -->
     <div id="products" class="products"></div>
 </body>
 </html>

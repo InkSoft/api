@@ -1,5 +1,8 @@
+// class that encapsulates all the product-related API calls (GetProductCategoryList, GetProductList, and GetProduct)
 window.ProductCatalogAPI = function (settings) {
-  var apiUtils = new APIUtils(settings);
+  var apiUtils = new APIUtils(settings); //utility methods we'll use to parse the output
+
+  //Gets ALL categories in the store, including all subcategories.  Returns them in a hierarchial javascript object
   this.getProductCategories = function (success, error) {
     $.ajax({
       url: 'http://' + settings.domain + '/GetProductCategoryList/' + settings.storeID,
@@ -29,6 +32,8 @@ window.ProductCatalogAPI = function (settings) {
   };
 
 
+  //Search the product database for products in a given category or matching a search term.
+  //If "includeNonPrintable" is true, pre-decorated and static products will be returned as well.
   this.getProductsByCategory = function (categoryID, searchTerm, includeNonPrintable, success, error) {
     categoryID = categoryID || 0;
     searchTerm = searchTerm || '';
@@ -40,8 +45,6 @@ window.ProductCatalogAPI = function (settings) {
       success: function (xml) {
         var deserializationSettings = {'products': {'name': 'product', 'mode': 'merge'}};
         var result = apiUtils.deserializeXml($(xml).children()[0], deserializationSettings).CS;
-
-
         if (result && result.length) {
           for (var i = 0; i < result.length; i++) {
             var product = result[i];
@@ -57,4 +60,6 @@ window.ProductCatalogAPI = function (settings) {
       error: error
     });
   }
+
+  //Next up, add GetProduct.
 };
