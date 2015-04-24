@@ -65,11 +65,12 @@ $(document).ready(function () {
     //here we will add some logic to handle what happens when a user clicks a product.
     $(".product-link").click(function(event) {
       event.preventDefault();
+      //hide the product list and show product details instead
       $(".products").hide();
       var productID = $(this).attr("data-product-id");
       var productTemplate = Handlebars.compile($("#product-template").html());
       api.getProductDetails(productID, null, function(product) {
-        $("#product").empty();
+        $("#product").empty(); //clear previously-viewed product content
         $("#product").show();
         $("#product").append(productTemplate({'product': product, 'productStyle': product.default_style, 'productRegion': product.default_region}));
       });
