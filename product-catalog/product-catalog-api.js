@@ -59,7 +59,23 @@ window.ProductCatalogAPI = function (settings) {
       },
       error: error
     });
-  }
+  };
 
-  //Next up, add GetProduct.
+
+
+  //Load the product
+  this.getProductDetails = function (idProduct, idStyle, success, error) {
+    var url = 'http://' + settings.domain + '/GetProduct/' + settings.storeID + '/' + idProduct + '/' + idStyle
+    $.ajax({
+      url: url,
+      success: function (xml) {
+        var deserializationSettings = {'products': {'name': 'product', 'mode': 'merge'}};
+        var product = apiUtils.deserializeXml($(xml).children()[0], deserializationSettings);
+        product.default_style = product.product_styles[0];
+        product.default_region = product.default_style.product_regions[0];
+        success(product);
+      },
+      error: error
+    });
+  };
 };

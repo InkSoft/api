@@ -51,6 +51,8 @@ $(document).ready(function () {
   //once products have been retrieved from the API, clear any existing products and render/add the newly retrieved ones.
   function showProducts(products) {
     $("#products").empty();
+    $("#products").show();
+    $("#product").hide();
     var productTemplate = Handlebars.compile($("#products-template").html());
     for (var i = 0; i < products.length; i++) {
       var product = products[i];
@@ -61,5 +63,16 @@ $(document).ready(function () {
 
   function productsReady() {
     //here we will add some logic to handle what happens when a user clicks a product.
+    $(".product-link").click(function(event) {
+      event.preventDefault();
+      $(".products").hide();
+      var productID = $(this).attr("data-product-id");
+      var productTemplate = Handlebars.compile($("#product-template").html());
+      api.getProductDetails(productID, null, function(product) {
+        $("#product").empty();
+        $("#product").show();
+        $("#product").append(productTemplate({'product': product, 'productStyle': product.default_style, 'productRegion': product.default_region}));
+      });
+    })
   }
 });
